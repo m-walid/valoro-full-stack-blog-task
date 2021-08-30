@@ -1,0 +1,33 @@
+<%- include('./partials/head.ejs') %> <%- include('./partials/navbar.ejs') %>
+<h1 class="my-2">Create new blog</h1>
+<form class="container">
+  <div class="mb-3">
+    <label for="blogTitle" class="form-label">Title</label>
+    <input type="text" class="form-control" id="blogTitle" />
+  </div>
+  <div class="mb-3">
+    <label for="blogBody" class="form-label">Content</label>
+    <textarea class="form-control" id="blogBody" rows="3"></textarea>
+  </div>
+  <button type="submit" class="btn btn-dark ms-auto d-block">Submit</button>
+</form>
+<script>
+  const submitBtn = document.querySelector("form button");
+  const blogTitle = document.querySelector("#blogTitle");
+  const blogBody = document.querySelector("#blogBody");
+  submitBtn.addEventListener("click", async (e) => {
+    const data = {
+      title: blogTitle.value,
+      body: blogBody.value,
+    };
+    e.preventDefault();
+    const res = await fetch("/blogs", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    const jsonRes = await res.json();
+    window.location.href = jsonRes.redirect;
+  });
+</script>
+<%- include('./partials/footer.ejs') %>

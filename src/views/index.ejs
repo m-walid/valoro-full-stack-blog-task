@@ -1,0 +1,25 @@
+<%- include('./partials/head.ejs') %> <%- include('./partials/navbar.ejs') %>
+<%if (blogs.length > 0) {%>
+<div class="container">
+  <h3 class="my-4">Blogs</h3>
+  <div class="cards ms-4 row row-cols-1 row-cols-lg-3 row-cols-md-2">
+    <% blogs.forEach(blog => { %>
+    <div class="col">
+      <div class="card mb-2 mx-auto w-100">
+        <div class="card-body">
+          <h5 class="card-title fs-4"><%= blog.title %></h5>
+          <p class="card-text ms-2 fs-4 text-truncate w-50"><%= blog.body %></p>
+          <a href="/blogs/<%= blog.id  %> " class="btn btn-dark ms-auto d-block my-1">read more</a>
+          <p class="card-text text-end">
+            <small class="text-muted"><%= blog.date %></small>
+          </p>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+  </div>
+  <% } else {%>
+  <p class="text-center fs-5 w-100">No blogs to display</p>
+  <% } %>
+</div>
+<%- include('./partials/footer.ejs') %>

@@ -1,0 +1,60 @@
+<%- include('./partials/head.ejs') %> <%- include('./partials/navbar.ejs') %>
+<div class="cards ms-4">
+  <div class="card mb-2 w-100" blog-audio="<%= blog.audio %>">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="card-title fs-3"><%= blog.title %></h5>
+        <img
+          id="deleteBtn"
+          blog-id="<%= blog.id %> "
+          src="/assets/trash.png"
+          class="img"
+          width="30px"
+          alt=""
+          srcset=""
+          style="cursor: pointer"
+        />
+      </div>
+      <p class="card-text ms-2 fs-4"><%= blog.body %></p>
+      <p
+        class="
+          card-text
+          text-end
+          d-flex
+          justify-content-between
+          align-items-center
+        "
+      >
+        <small class="text-muted"><%= blog.date %></small>
+      </p>
+    </div>
+  </div>
+</div>
+<script>
+  const deleteBtn = document.querySelector("#deleteBtn");
+  deleteBtn.addEventListener("click", async (e) => {
+    const blogId = deleteBtn.getAttribute("blog-id");
+    console.log(blogId);
+    try {
+      const res = await fetch(`/blogs/${blogId}`, {
+        method: "DELETE",
+      });
+      const jsonRes = await res.json();
+      window.location.href = jsonRes.redirect;
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+  const createAudioBtn = () => {
+    const blogAudio = document.querySelector(".card").getAttribute("blog-audio");
+    const audio = new Audio(blogAudio);
+    const audioBtn = document.createElement("div");
+    audioBtn.innerText = "play audio";
+    audioBtn.className = "btn btn-success";
+    audioBtn.addEventListener("click", () => audio.play());
+    document.querySelector(".text-end").appendChild(audioBtn);
+  };
+  createAudioBtn();
+</script>
+<%- include('./partials/footer.ejs') %>
