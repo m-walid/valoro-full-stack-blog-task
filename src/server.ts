@@ -12,7 +12,7 @@ import fs from "fs";
 const PORT = process.env.PORT;
 const app = express();
 app.set("view engine", "ejs");
-app.set("views", "./src/views");
+app.set("views", __dirname +"/views");
 app.use(express.static(__dirname + "/public"));
 app.use(morgan("dev"));
 app.use(json());
