@@ -18,11 +18,6 @@ app.use(morgan("dev"));
 app.use(json());
 
 app.use("/blogs", blogRouter);
-// app.use("/tts", async (req: Request, res: Response) => {
-//   const ttsService = new TtsService();
-//   const audio = await ttsService.tts("hello zoz");
-//   res.json({ audio });
-// });
 app.get("/", (req: Request, res: Response) => res.redirect("/blogs"));
 app.get("/about", (request: Request, response: Response) =>
   response.render("about", { title: "about" })
